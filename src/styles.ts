@@ -34,8 +34,9 @@ export const styles = StyleSheet.create({
 
   heading: {
     fontSize: 24,
-    fontWeight: '800',
+    fontWeight: '900',
     color: '#0f172a',
+    
     marginBottom: 4,
   },
   subheading: {

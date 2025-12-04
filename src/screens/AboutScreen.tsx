@@ -7,8 +7,9 @@ export default function AboutScreen() {
     <View style={styles.section}>
       <Text style={styles.heading}>About This App</Text>
       <Text style={styles.infoText}>
-        Developers: Mehmet Demir (Student ID: 101394234), Eric Laudrum (Student
-        ID: 100556934)
+        <Text style={{ fontWeight: 'bold' }}>Developers:</Text> {'\n'}
+        Mehmet Demir ,101394234 {'\n'}
+        Eric Laudrum ,100556934 {'\n'}
       </Text>
       <Text style={styles.infoText}>
         This React Native app converts amounts between currencies using the Free
