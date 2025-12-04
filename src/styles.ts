@@ -31,4 +31,22 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 12,
   },
+
+  heading: {
+    fontSize: 24,
+    fontWeight: '800',
+    color: '#0f172a',
+    marginBottom: 4,
+  },
+  subheading: {
+    fontSize: 14,
+    color: '#475569',
+    marginBottom: 12,
+  },
+  infoText: {
+    fontSize: 16,
+    color: '#334155',
+    marginTop: 8,
+    lineHeight: 22,
+  },
 });
