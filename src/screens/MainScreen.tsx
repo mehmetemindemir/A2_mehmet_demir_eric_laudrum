@@ -114,10 +114,28 @@ const SelectField = ({
       </Modal>
     </View>
   );
-};”
+};
 
 
 export default function MainScreen() {
+  const [baseCurrency, setBaseCurrency] = useState('CAD');
+    const [targetCurrency, setTargetCurrency] = useState('USD');
+    const [amount, setAmount] = useState('1');
+    const [fetchState, setFetchState] = useState<FetchState>({
+      loading: false,
+      error: null,
+    });
+    const [result, setResult] = useState<ConversionResult>(null);
+  
+    const currencyOptions = ['CAD', 'USD', 'AUD', 'GBP', 'EUR', 'JPY'];
+  
+    const parsedAmount = useMemo(() => Number(amount), [amount]);
+    const isAmountValid = useMemo(
+      () => !Number.isNaN(parsedAmount) && parsedAmount > 0,
+      [parsedAmount],
+    );
+  
+    const validateCurrency = (code: string) => /^[A-Z]{3}$/.test(code);
   
   return (
     <KeyboardAvoidingView
