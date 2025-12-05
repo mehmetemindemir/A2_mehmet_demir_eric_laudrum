@@ -14,7 +14,7 @@ import {
 import { styles } from '../styles';
 const API_URL = 'https://api.freecurrencyapi.com/v1/latest';
 declare const process: { env: Record<string, string | undefined> };
-const API_KEY =process.env.CURRENCY_API_KEY || undefined;
+const API_KEY =process.env.CURRENCY_API_KEY || "fca_live_g5gg3R4fzStTll6IzhO8QLVh8ZGqOx7epulx7rzP";
 
 type FetchState = {
   loading: boolean;
@@ -236,16 +236,16 @@ export default function MainScreen() {
         keyboardShouldPersistTaps="handled"
       >
         <View style={styles.section}>
-          <Text style={styles.heading}>Currency Converter</Text>
+          <Text style={styles.heading}>Exchange Currency</Text>
           <Text style={styles.subheading}>
-            Enter base and destination currency codes and an amount to convert.
+            Enter your currency and to change  currency codes and an amount to exchange.
           </Text>
         </View>
 
         <View style={styles.card}>
           <View style={styles.currencyBlock}>
             <SelectField
-              label="Base Currency"
+              label="I have"
               value={baseCurrency}
               options={currencyOptions.filter(opt => opt !== targetCurrency)}
               onSelect={selected => {
@@ -265,7 +265,7 @@ export default function MainScreen() {
                 style={styles.swapCircleButton}
                 onPress={handleSwapCurrencies}
                 accessibilityRole="button"
-                accessibilityLabel="Swap base and destination currencies"
+                accessibilityLabel="Swap currency codes between I have and I want"
               >
                 <Text style={styles.swapCircleIcon}>↑ ↓</Text>
               </TouchableOpacity>
@@ -273,7 +273,7 @@ export default function MainScreen() {
             </View>
 
             <SelectField
-              label="Destination Currency"
+              label="I want"
               value={targetCurrency}
               options={currencyOptions.filter(opt => opt !== baseCurrency)}
               onSelect={setTargetCurrency}
@@ -298,7 +298,7 @@ export default function MainScreen() {
             {fetchState.loading ? (
               <ActivityIndicator color="#fff" />
             ) : (
-              <Text style={styles.buttonText}>Convert</Text>
+              <Text style={styles.buttonText}>Exchange</Text>
             )}
           </TouchableOpacity>
 
@@ -308,12 +308,12 @@ export default function MainScreen() {
 
           {result ? (
             <View style={styles.resultBox}>
-              <Text style={styles.resultHeading}>Converted Amount</Text>
+              <Text style={styles.resultHeading}>Exchanged Amount</Text>
               <Text style={styles.resultValue}>
                 {result.convertedAmount.toFixed(2)} {result.target}
               </Text>
               <Text style={styles.resultMeta}>
-                Rate used: 1 {result.base} = {result.rate.toFixed(4)}{' '}
+                1 {result.base} = {result.rate.toFixed(4)}{' '}
                 {result.target}
               </Text>
             </View>
