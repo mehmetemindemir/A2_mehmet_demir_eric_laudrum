@@ -79,8 +79,7 @@ const SelectField = ({
               <Text style={styles.subheading}>
                 Enter base and destination currency codes and an amount to convert.
               </Text>
-            </TouchableOpacity>
-          </View>
+            </View>
 
             <View style={styles.card}>
               <SelectField
@@ -140,8 +139,8 @@ const SelectField = ({
                     Rate used: 1 {result.base} = {result.rate.toFixed(4)}{' '}
                     {result.target}
                   </Text>
-        </View>
-      </Modal>
+                </View>
+              ) : null}
     </View>
   );
 };
