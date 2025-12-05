@@ -60,6 +60,43 @@ const LabeledInput = ({
   </View>
 );
 
+const SelectField = ({
+  label,
+  value,
+  options,
+  onSelect,
+}: {
+  label: string;
+  value: string;
+  options: string[];
+  onSelect: (val: string) => void;
+}) => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <View style={styles.inputBlock}>
+      <Text style={styles.inputLabel}>{label}</Text>
+      <Pressable
+        onPress={() => setOpen(true)}
+        style={[styles.input, styles.selectInput]}
+        accessibilityRole="button"
+      >
+        <Text style={styles.selectValue}>{value}</Text>
+      </Pressable>
+      <Modal visible={open} animationType="slide" transparent>
+        <View style={styles.modalBackdrop}>
+          <View style={styles.modalCard}>
+            <Text style={styles.modalHeading}>Choose Currency</Text>
+            <ScrollView>
+              {options.map(opt => (
+                <TouchableOpacity
+                  key={opt}
+                  style={styles.optionRow}
+                  onPress={() => {
+                    onSelect(opt);
+                    setOpen(false);
+
+
 export default function MainScreen() {
   
   return (
