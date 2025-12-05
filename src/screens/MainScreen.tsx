@@ -135,27 +135,49 @@ export default function MainScreen() {
   );
 
   const validateCurrency = (code: string) => /^[A-Z]{3}$/.test(code);
-  const handleConvert = async () => {
+  
+const handleConvert = async () => {
     const base = baseCurrency.trim().toUpperCase();
     const target = targetCurrency.trim().toUpperCase();
 
     if (!validateCurrency(base) || !validateCurrency(target)) {
-          setFetchState({
-            loading: false,
-            error: 'Currency codes must be 3-letter uppercase ISO codes.',
-          });
-          setResult(null);
-          return;
-        }
+      setFetchState({
+        loading: false,
+        error: 'Currency codes must be 3-letter uppercase ISO codes.',
+      });
+      setResult(null);
+      return;
+    }
 
-        if (base === target) {
-          setFetchState({
-            loading: false,
-            error: 'Base and destination currencies must be different.',
-          });
-          setResult(null);
-          return;
-        }
+    if (base === target) {
+      setFetchState({
+        loading: false,
+        error: 'Base and destination currencies must be different.',
+      });
+      setResult(null);
+      return;
+    }
+
+    if (!isAmountValid) {
+      setFetchState({
+        loading: false,
+        error: 'Amount must be a positive number.',
+      });
+      setResult(null);
+      return;
+    }
+
+    if (!API_KEY) {
+      setFetchState({
+        loading: false,
+        error: 'Please set a valid API key in App.tsx.',
+      });
+      setResult(null);
+      return;
+    }
+
+    setFetchState({ loading: true, error: null });
+    setResult(null);
 
     try {
       const url = `${API_URL}?base_currency=${encodeURIComponent(
@@ -191,7 +213,6 @@ export default function MainScreen() {
 
     setFetchState({ loading: false, error: null });
   };
-
 const buttonDisabled =
     fetchState.loading ||
     !isAmountValid ||
