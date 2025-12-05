@@ -13,8 +13,8 @@ import {
 } from 'react-native';
 import { styles } from '../styles';
 const API_URL = 'https://api.freecurrencyapi.com/v1/latest';
-// Replace with a valid API key from https://freecurrencyapi.com
-const API_KEY = 'fca_live_g5gg3R4fzStTll6IzhO8QLVh8ZGqOx7epulx7rzP';
+declare const process: { env: Record<string, string | undefined> };
+const API_KEY =process.env.CURRENCY_API_KEY || undefined;
 
 type FetchState = {
   loading: boolean;
@@ -177,7 +177,7 @@ export default function MainScreen() {
     if (!API_KEY) {
       setFetchState({
         loading: false,
-        error: 'Please set a valid API key in App.tsx.',
+        error: 'Please set a valid API key in the CURRENCY_API_KEY env var.',
       });
       setResult(null);
       return;
