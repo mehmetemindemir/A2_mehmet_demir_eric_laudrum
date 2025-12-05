@@ -95,6 +95,26 @@ const SelectField = ({
                   onPress={() => {
                     onSelect(opt);
                     setOpen(false);
+                  }}
+                >
+                  <Text style={styles.optionText}>{opt}</Text>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+            <TouchableOpacity
+              style={[styles.button, styles.buttonGhost]}
+              onPress={() => setOpen(false)}
+            >
+              <Text style={[styles.buttonText, styles.buttonGhostText]}>
+                Cancel
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+    </View>
+  );
+};”
 
 
 export default function MainScreen() {
