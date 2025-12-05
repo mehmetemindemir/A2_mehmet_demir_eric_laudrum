@@ -74,45 +74,74 @@ const SelectField = ({
   const [open, setOpen] = useState(false);
 
   return (
-    <View style={styles.inputBlock}>
-      <Text style={styles.inputLabel}>{label}</Text>
-      <Pressable
-        onPress={() => setOpen(true)}
-        style={[styles.input, styles.selectInput]}
-        accessibilityRole="button"
-      >
-        <Text style={styles.selectValue}>{value}</Text>
-      </Pressable>
-      <Modal visible={open} animationType="slide" transparent>
-        <View style={styles.modalBackdrop}>
-          <View style={styles.modalCard}>
-            <Text style={styles.modalHeading}>Choose Currency</Text>
-            <ScrollView>
-              {options.map(opt => (
-                <TouchableOpacity
-                  key={opt}
-                  style={styles.optionRow}
-                  onPress={() => {
-                    onSelect(opt);
-                    setOpen(false);
-                  }}
-                >
-                  <Text style={styles.optionText}>{opt}</Text>
-                </TouchableOpacity>
-              ))}
-            </ScrollView>
-            <TouchableOpacity
-              style={[styles.button, styles.buttonGhost]}
-              onPress={() => setOpen(false)}
-            >
-              <Text style={[styles.buttonText, styles.buttonGhostText]}>
-                Cancel
+    <View style={styles.section}>
+              <Text style={styles.heading}>Currency Converter</Text>
+              <Text style={styles.subheading}>
+                Enter base and destination currency codes and an amount to convert.
               </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
-    </View>
+            </View>
+
+            <View style={styles.card}>
+              <SelectField
+                label="Base Currency"
+                value={baseCurrency}
+                options={currencyOptions.filter(opt => opt !== targetCurrency)}
+                onSelect={selected => {
+                  setBaseCurrency(selected);
+                  if (selected === targetCurrency) {
+                    const next = currencyOptions.find(opt => opt !== selected);
+                    if (next) {
+                      setTargetCurrency(next);
+                    }
+                  }
+                }}
+              />
+              <SelectField
+                label="Destination Currency"
+                value={targetCurrency}
+                options={currencyOptions.filter(opt => opt !== baseCurrency)}
+                onSelect={setTargetCurrency}
+              />
+              <LabeledInput
+                label="Amount"
+                value={amount}
+                onChangeText={setAmount}
+                placeholder="e.g. 1"
+                keyboardType="numeric"
+              />
+
+              <TouchableOpacity
+                style={[
+                  styles.button,
+                  buttonDisabled ? styles.buttonDisabled : styles.buttonPrimary,
+                ]}
+                disabled={buttonDisabled}
+                onPress={handleConvert}
+              >
+                {fetchState.loading ? (
+                  <ActivityIndicator color="#fff" />
+                ) : (
+                  <Text style={styles.buttonText}>Convert</Text>
+                )}
+              </TouchableOpacity>
+
+              {fetchState.error ? (
+                <Text style={styles.errorText}>{fetchState.error}</Text>
+              ) : null}
+
+              {result ? (
+                <View style={styles.resultBox}>
+                  <Text style={styles.resultHeading}>Converted Amount</Text>
+                  <Text style={styles.resultValue}>
+                    {result.convertedAmount.toFixed(2)} {result.target}
+                  </Text>
+                  <Text style={styles.resultMeta}>
+                    Rate used: 1 {result.base} = {result.rate.toFixed(4)}{' '}
+                    {result.target}
+                  </Text>
+                </View>
+              ) : null}
+            </View>
   );
 };”
 
