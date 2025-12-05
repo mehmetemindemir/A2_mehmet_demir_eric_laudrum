@@ -139,9 +139,23 @@ export default function MainScreen() {
     const base = baseCurrency.trim().toUpperCase();
     const target = targetCurrency.trim().toUpperCase();
 
-    
+    if (!validateCurrency(base) || !validateCurrency(target)) {
+          setFetchState({
+            loading: false,
+            error: 'Currency codes must be 3-letter uppercase ISO codes.',
+          });
+          setResult(null);
+          return;
+        }
 
-    
+        if (base === target) {
+          setFetchState({
+            loading: false,
+            error: 'Base and destination currencies must be different.',
+          });
+          setResult(null);
+          return;
+        }
 
     try {
       const url = `${API_URL}?base_currency=${encodeURIComponent(
