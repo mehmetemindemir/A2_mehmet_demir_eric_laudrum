@@ -135,8 +135,15 @@ export default function MainScreen() {
   );
 
   const validateCurrency = (code: string) => /^[A-Z]{3}$/.test(code);
-  
-const handleConvert = async () => {
+
+  const handleSwapCurrencies = () => {
+    setBaseCurrency(targetCurrency);
+    setTargetCurrency(baseCurrency);
+    setResult(null);
+    setFetchState({ loading: false, error: null });
+  };
+
+  const handleConvert = async () => {
     const base = baseCurrency.trim().toUpperCase();
     const target = targetCurrency.trim().toUpperCase();
 
@@ -213,7 +220,7 @@ const handleConvert = async () => {
 
     setFetchState({ loading: false, error: null });
   };
-const buttonDisabled =
+  const buttonDisabled =
     fetchState.loading ||
     !isAmountValid ||
     !validateCurrency(baseCurrency.trim().toUpperCase()) ||
@@ -236,26 +243,42 @@ const buttonDisabled =
         </View>
 
         <View style={styles.card}>
-          <SelectField
-            label="Base Currency"
-            value={baseCurrency}
-            options={currencyOptions.filter(opt => opt !== targetCurrency)}
-            onSelect={selected => {
-              setBaseCurrency(selected);
-              if (selected === targetCurrency) {
-                const next = currencyOptions.find(opt => opt !== selected);
-                if (next) {
-                  setTargetCurrency(next);
+          <View style={styles.currencyBlock}>
+            <SelectField
+              label="Base Currency"
+              value={baseCurrency}
+              options={currencyOptions.filter(opt => opt !== targetCurrency)}
+              onSelect={selected => {
+                setBaseCurrency(selected);
+                if (selected === targetCurrency) {
+                  const next = currencyOptions.find(opt => opt !== selected);
+                  if (next) {
+                    setTargetCurrency(next);
+                  }
                 }
-              }
-            }}
-          />
-          <SelectField
-            label="Destination Currency"
-            value={targetCurrency}
-            options={currencyOptions.filter(opt => opt !== baseCurrency)}
-            onSelect={setTargetCurrency}
-          />
+              }}
+            />
+
+            <View style={styles.swapBetweenRow}>
+              <View style={styles.swapBetweenLine} />
+              <TouchableOpacity
+                style={styles.swapCircleButton}
+                onPress={handleSwapCurrencies}
+                accessibilityRole="button"
+                accessibilityLabel="Swap base and destination currencies"
+              >
+                <Text style={styles.swapCircleIcon}>↑ ↓</Text>
+              </TouchableOpacity>
+              <View style={styles.swapBetweenLine} />
+            </View>
+
+            <SelectField
+              label="Destination Currency"
+              value={targetCurrency}
+              options={currencyOptions.filter(opt => opt !== baseCurrency)}
+              onSelect={setTargetCurrency}
+            />
+          </View>
           <LabeledInput
             label="Amount"
             value={amount}

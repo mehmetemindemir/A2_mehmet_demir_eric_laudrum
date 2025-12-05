@@ -176,5 +176,52 @@ export const styles = StyleSheet.create({
     },
     buttonGhostText: {
       color: '#0f172a',
-    }
+    },
+    swapButtonText: {
+      fontSize: 14,
+      fontWeight: '800',
+      color: '#0f172a',
+    },
+    swapButtonHint: {
+      fontSize: 10,
+      color: '#475569',
+    },
+    currencyBlock: {
+      gap: 2,
+    },
+    swapBetweenRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginVertical: 0,
+      gap: 0,
+    },
+    swapBetweenLine: {
+      flex: 1,
+      height: 1,
+      backgroundColor: '#cbd5e1',
+    },
+    swapCircleButton: {
+      width: 48,
+      height: 48,
+      borderRadius: 32,
+      borderWidth: 3,
+      borderColor: '#cbd5e1',
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginVertical: 0,
+      shadowColor: '#cbd5e1',
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.15,
+      shadowRadius: 6,
+      elevation: 4,
+    },
+    swapCircleIcon: {
+      fontSize: 20,
+      fontWeight: '800',
+      color: '#0f172a',
+      textAlign: 'center',
+      lineHeight: 15,
+    },
 });
