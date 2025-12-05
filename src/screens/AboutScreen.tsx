@@ -7,7 +7,7 @@ export default function AboutScreen() {
     <View style={styles.section}>
       <Text style={styles.heading}>About This App</Text>
       <Text style={styles.infoText}>
-        <Text style={{ fontWeight: 'bold' }}>Developers:</Text> {'\n'}
+        <Text style={styles.boldText}>Developers:</Text> {'\n'}
         Mehmet Demir ,101394234 {'\n'}
         Eric Laudrum ,100556934 {'\n'}
       </Text>

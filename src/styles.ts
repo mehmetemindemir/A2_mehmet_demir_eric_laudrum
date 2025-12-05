@@ -50,6 +50,9 @@ export const styles = StyleSheet.create({
     marginTop: 8,
     lineHeight: 22,
   },
+  boldText:{
+    fontWeight: '700',
+  },
   inputBlock: {
     marginBottom: 12,
   },
