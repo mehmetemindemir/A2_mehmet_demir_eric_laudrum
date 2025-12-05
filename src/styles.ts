@@ -50,4 +50,30 @@ export const styles = StyleSheet.create({
     marginTop: 8,
     lineHeight: 22,
   },
+  inputBlock: {
+    marginBottom: 12,
+  },
+  inputLabel: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#0f172a',
+    marginBottom: 4,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#cbd5e1',
+    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    fontSize: 16,
+    color: '#0f172a',
+  },
+  selectInput: {
+    justifyContent: 'center',
+  },
+  selectValue: {
+    fontSize: 16,
+    color: '#0f172a',
+    fontWeight: '600',
+  },
 });

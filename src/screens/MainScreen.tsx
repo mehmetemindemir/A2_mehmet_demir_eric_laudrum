@@ -12,6 +12,21 @@ import {
   View,
 } from 'react-native';
 import { styles } from '../styles';
+const API_URL = 'https://api.freecurrencyapi.com/v1/latest';
+// Replace with a valid API key from https://freecurrencyapi.com
+const API_KEY = 'fca_live_g5gg3R4fzStTll6IzhO8QLVh8ZGqOx7epulx7rzP';
+
+type FetchState = {
+  loading: boolean;
+  error: string | null;
+};
+
+type ConversionResult = {
+  base: string;
+  target: string;
+  rate: number;
+  convertedAmount: number;
+} | null; 
 
 const LabeledInput = ({
   label,
