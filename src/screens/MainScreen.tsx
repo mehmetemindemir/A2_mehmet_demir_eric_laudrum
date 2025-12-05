@@ -178,6 +178,12 @@ export default function MainScreen() {
     setFetchState({ loading: false, error: null });
   };
 
+const buttonDisabled =
+    fetchState.loading ||
+    !isAmountValid ||
+    !validateCurrency(baseCurrency.trim().toUpperCase()) ||
+    !validateCurrency(targetCurrency.trim().toUpperCase());
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
