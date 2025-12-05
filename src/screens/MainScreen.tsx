@@ -135,6 +135,48 @@ export default function MainScreen() {
   );
 
   const validateCurrency = (code: string) => /^[A-Z]{3}$/.test(code);
+  const handleConvert = async () => {
+    const base = baseCurrency.trim().toUpperCase();
+    const target = targetCurrency.trim().toUpperCase();
+
+    
+
+    
+
+    try {
+      const url = `${API_URL}?base_currency=${encodeURIComponent(
+        base,
+      )}&currencies=${encodeURIComponent(target)}&apikey=${API_KEY}`;
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(
+          `API error ${response.status}: ${response.statusText || 'Unknown'}`,
+        );
+      }
+
+      const data = await response.json();
+      const rate = data?.data?.[target];
+
+      if (typeof rate !== 'number') {
+        throw new Error('Exchange rate not available for the selected currency.');
+      }
+
+      setResult({
+        base,
+        target,
+        rate,
+        convertedAmount: parsedAmount * rate,
+      });
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : 'An unexpected error occurred.';
+      setFetchState({ loading: false, error: message });
+      return;
+    }
+
+    setFetchState({ loading: false, error: null });
+  };
 
   return (
     <KeyboardAvoidingView
